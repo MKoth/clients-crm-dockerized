@@ -1,0 +1,71 @@
+###########
+# BUILDER #
+###########
+
+# pull official base image
+FROM python:3 as builder
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# create set work directory
+RUN mkdir /backend
+WORKDIR /backend
+
+# lint
+#RUN pip install --upgrade pip
+#RUN pip install flake8
+#COPY . /backend/
+#RUN flake8 --ignore=E501,F401 .
+
+# install dependencies
+COPY ./requirements.txt .
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /backend/wheels -r requirements.txt
+
+
+#########
+# FINAL #
+#########
+
+# pull official base image
+FROM python:3
+
+# create directory for the backend user
+RUN mkdir -p /home/backend
+
+# create the backend user
+RUN groupadd backend && useradd -g backend backend
+
+# install netcat for running nc in bash file
+RUN apt-get update && apt-get install -y netcat
+
+# create the appropriate directories
+ENV HOME=/home/backend
+ENV APP_HOME=/home/backend/web
+RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/static
+RUN mkdir $APP_HOME/media
+WORKDIR $APP_HOME
+
+# install dependencies
+RUN apt-get update && apt-get install -y libpq-dev
+COPY --from=builder /backend/wheels /wheels
+COPY --from=builder /backend/requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install --no-cache /wheels/*
+
+# copy entrypoint-prod.sh
+COPY ./entrypoint.prod.sh $APP_HOME
+
+# copy project
+COPY . $APP_HOME
+
+# chown all the files to the backend user
+RUN chown -R backend:backend $APP_HOME
+
+# change to the backend user
+USER backend
+
+# run entrypoint.prod.sh
+ENTRYPOINT ["/home/backend/web/entrypoint.prod.sh"]

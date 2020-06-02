@@ -1,0 +1,58 @@
+version: '3.7'
+
+services:
+  web-prod:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    command: gunicorn apps.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/home/backend/web/static
+      - media_volume:/home/backend/web/media
+    expose:
+      - 8000
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.prod.db
+  front-prod:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    volumes:
+      - front_volume:/frontend/build
+    depends_on:
+      - web-prod
+  widget-prod:
+    build:
+      context: ./widget
+      dockerfile: Dockerfile.prod
+    volumes:
+      - widget_volume:/widget/dist
+    depends_on:
+      - front-prod
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/backend/web/static
+      - media_volume:/home/backend/web/media
+      - front_volume:/usr/share/nginx/html
+      - widget_volume:/usr/share/nginx/html/widget
+    ports:
+      - 1337:80
+      - 80:3000
+    depends_on:
+      - front-prod
+  
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+  front_volume:
+  widget_volume:

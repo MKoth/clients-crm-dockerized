@@ -1,0 +1,15 @@
+.serftopia-socials-icons{
+  font-size: 20px;
+  margin-right: 1vw;
+}
+
+.serftopia-card-icons{
+  background:#dedfe6;
+  padding:15px;
+  margin-bottom:15px;
+}
+
+.serftopia-socials-icons:hover{
+  cursor: pointer;
+  color:grey;
+}

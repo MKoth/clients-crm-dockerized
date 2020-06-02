@@ -1,0 +1,13 @@
+Django==3.0.2
+wheel==0.33.6
+pytz==2018.4
+pillow==6.2.1
+gunicorn==19.9.0
+django-allauth==0.41.0
+django-cors-headers==3.2.1
+django-rest-auth==0.9.5
+djangorestframework==3.11.0
+drf-yasg==1.17.0
+psycopg2-binary==2.8.3
+dj-database-url==0.5.0
+python-dateutil==2.8.1

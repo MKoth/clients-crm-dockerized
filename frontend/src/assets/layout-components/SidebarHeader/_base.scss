@@ -1,0 +1,70 @@
+//  Core
+
+.app-sidebar {
+  &--header {
+    background-color: $primary !important;
+    padding: 0 ($layout-spacer / 2);
+    min-height: $header-height;
+    height: $header-height;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+
+    .expand-sidebar-btn {
+      @include border-radius(100%);
+    }
+
+    &:after {
+      content: "";
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      height: 1px;
+      position: absolute;
+    }
+  }
+
+  .toggle-mobile-sidebar-btn {
+    display: none;
+  }
+
+  // Responsive
+
+  @include media-breakpoint-down(md) {
+    .toggle-mobile-sidebar-btn {
+      display: block;
+    }
+  }
+}
+
+// Logo wrapper
+
+.nav-logo {
+  a {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    color: $white;
+    letter-spacing: 2px;
+    font-size: $nav-logo-font-size;
+  }
+}
+
+@-webkit-keyframes logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+// Themes
+
+@import "themes/light";
+
+// Modifiers
+
+@import "modifiers/collapsed";

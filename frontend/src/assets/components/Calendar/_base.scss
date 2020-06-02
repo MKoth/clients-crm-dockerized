@@ -1,0 +1,8 @@
+@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";
+
+.fc-button-primary, .fc-button-primary:hover, .fc-button-primary:focus, .fc-button-primary:disabled, .fc-button-primary:active {
+  color: #fff;
+  background-color: $primary;
+  border-color: $primary;
+}
