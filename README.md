@@ -26,11 +26,11 @@ sudo docker volume ls
 # And finally build
 sudo docker-compose -f docker-compose.prod.yml up -d --build
 # Run database migration
-sudo docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
+sudo docker-compose -f docker-compose.prod.yml exec web-prod python manage.py migrate --noinput
 # Collect static files
-sudo docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
+sudo docker-compose -f docker-compose.prod.yml exec web-prod python manage.py collectstatic --no-input --clear
 # Create super user
-sudo docker-compose -f docker-compose.prod.yml exec web python manage.py createsuperuser
+sudo docker-compose -f docker-compose.prod.yml exec web-prod python manage.py createsuperuser
 ```
 
 ##### 2. Launch development project

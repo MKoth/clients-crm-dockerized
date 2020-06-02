@@ -87,9 +87,11 @@ class StaffUpdate(UpdateAPIView):
     instance = self.get_object()
     if 'image' in parsed_data:
       if 'image' in request.FILES:
-        instance.image = request.FILES.get('image')
+        parsed_data['image'] = request.FILES.get('image')
+        print('image present')
       else:
-        instance.image = None
+        parsed_data['image'] = None
+        print('no image present')
     serializer = self.get_serializer(instance, data=parsed_data, partial=partial)
     serializer.is_valid(raise_exception=True)
     self.perform_update(serializer)

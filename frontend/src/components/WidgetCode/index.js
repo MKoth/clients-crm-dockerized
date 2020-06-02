@@ -15,6 +15,8 @@ class WidgetCode extends Component {
     const {theme} = props;
     this.state = {
       company: props.company.id,
+      button_container_id: "widget_button_container",
+      api: window.location.protocol+"//"+window.location.host,
       formSettings: {
         primary: theme.palette.primary.main,
         secondary: theme.palette.secondary.main,
