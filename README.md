@@ -37,6 +37,7 @@ sudo docker-compose -f docker-compose.prod.yml exec web-prod python manage.py cr
 
 backend at: http://localhost:1337/
 website at: http://localhost/
+widget at: http://localhost/widget/serftopiaWidget
 
 ##### To kill ports blocking processes on Linux
 ```bash

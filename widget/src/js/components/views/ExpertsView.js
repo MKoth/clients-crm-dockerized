@@ -40,7 +40,7 @@ export function ExpertsView(props) {
         {staff_team.map(staff_member=><ListItem divider key={staff_member.id}>
             <ListItemAvatar>
               <Avatar>
-                {staff_member.image?<img width="60" src={baseUrl+staff_member.image}/>:staff_member.user.first_name[0]}
+                {staff_member.image?<img width="60" src={props.mediaPath?props.mediaPath+staff_member.image:baseUrl+staff_member.image}/>:staff_member.user.first_name[0]}
               </Avatar>
             </ListItemAvatar>
             <ListItemText

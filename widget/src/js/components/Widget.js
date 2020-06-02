@@ -21,7 +21,7 @@ class Widget extends Component {
     super(props);
     this.state = {
       open: false,
-      company: 3,
+      company: props.company?props.company:3,
       step: 1,
       services: [],
       durationMinutes: 0,
@@ -211,7 +211,7 @@ class Widget extends Component {
     const { step, staff, services, date, company } = this.state;
     switch(step) {
       case 1:
-        return <ExpertsView company={company} onExpertSelected={this.setExpert}/>;
+        return <ExpertsView mediaPath={this.props.api} company={company} onExpertSelected={this.setExpert}/>;
       case 2:
         return <ServiceView company={company} onServicesSelected={this.setServices} staffId={staff?staff.id:'all'} onBack={this.back}/>;
       case 3:
