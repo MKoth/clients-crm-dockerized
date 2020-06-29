@@ -1,4 +1,4 @@
-# serftopia
+# clients-crm
 
 ##### 1. Start development project run
 ```bash
